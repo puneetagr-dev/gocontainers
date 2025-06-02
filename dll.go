@@ -121,3 +121,25 @@ func (dll *DLL[T]) Clear() {
 	dll.tail = nil
 	dll.size = 0
 }
+
+type Iterator[T comparable] struct {
+	dll     *DLL[T]
+	current *Node[T]
+}
+
+func (dll *DLL[T]) Iterator() *Iterator[T] {
+	return &Iterator[T]{dll: dll, current: dll.head}
+}
+
+func (it *Iterator[T]) HasNext() bool {
+	return it.current != nil
+}
+
+func (it *Iterator[T]) Next() T {
+	if it.current == nil {
+		panic("Iterator is at the end")
+	}
+
+	it.current = it.current.next
+	return it.current.element
+}
