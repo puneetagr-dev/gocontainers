@@ -132,7 +132,7 @@ func (dll *DLL[T]) Iterator() *Iterator[T] {
 }
 
 func (it *Iterator[T]) HasNext() bool {
-	return it.current != nil
+	return it.current != nil && it.current.next != nil
 }
 
 func (it *Iterator[T]) Next() T {
