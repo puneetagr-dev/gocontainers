@@ -140,6 +140,7 @@ func (it *Iterator[T]) Next() T {
 		panic("Iterator is at the end")
 	}
 
+	elem := it.current.element
 	it.current = it.current.next
-	return it.current.element
+	return elem
 }
