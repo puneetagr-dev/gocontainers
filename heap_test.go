@@ -1,7 +1,6 @@
 package gocontainers
 
 import (
-	"container/heap"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -16,9 +15,9 @@ func TestHeapBasicOperations(t *testing.T) {
 	item3 := NewItem[int](20)
 
 	// Push items
-	heap.Push(h, item1)
-	heap.Push(h, item2)
-	heap.Push(h, item3)
+	h.PushItem(item1)
+	h.PushItem(item2)
+	h.PushItem(item3)
 
 	assert.Equal(t, 3, h.Len())
 
@@ -28,17 +27,17 @@ func TestHeapBasicOperations(t *testing.T) {
 	assert.Equal(t, 20, val.Get())
 
 	// Pop the highest priority
-	popped := heap.Pop(h).(*Item[int])
+	popped := h.PopItem()
 	assert.Equal(t, 20, popped.Get())
 	assert.Equal(t, 2, h.Len())
 
 	// Pop next
-	popped = heap.Pop(h).(*Item[int])
+	popped = h.PopItem()
 	assert.Equal(t, 10, popped.Get())
 	assert.Equal(t, 1, h.Len())
 
 	// Pop last
-	popped = heap.Pop(h).(*Item[int])
+	popped = h.PopItem()
 	assert.Equal(t, 5, popped.Get())
 	assert.Equal(t, 0, h.Len())
 
@@ -54,9 +53,9 @@ func TestHeapUpdate(t *testing.T) {
 	item2 := NewItem[int](5)
 	item3 := NewItem[int](20)
 
-	heap.Push(h, item1)
-	heap.Push(h, item2)
-	heap.Push(h, item3)
+	h.PushItem(item1)
+	h.PushItem(item2)
+	h.PushItem(item3)
 
 	// Update item2 from 5 to 25 (should become the new max)
 	item2.Update(25)
@@ -67,13 +66,13 @@ func TestHeapUpdate(t *testing.T) {
 	assert.Equal(t, 25, val.Get())
 
 	// Pop and check order
-	popped := heap.Pop(h).(*Item[int])
+	popped := h.PopItem()
 	assert.Equal(t, 25, popped.Get())
 
-	popped = heap.Pop(h).(*Item[int])
+	popped = h.PopItem()
 	assert.Equal(t, 20, popped.Get())
 
-	popped = heap.Pop(h).(*Item[int])
+	popped = h.PopItem()
 	assert.Equal(t, 10, popped.Get())
 }
 
@@ -85,9 +84,9 @@ func TestHeapRemove(t *testing.T) {
 	item2 := NewItem[int](5)
 	item3 := NewItem[int](20)
 
-	heap.Push(h, item1)
-	heap.Push(h, item2)
-	heap.Push(h, item3)
+	h.PushItem(item1)
+	h.PushItem(item2)
+	h.PushItem(item3)
 
 	// Remove item3 (20)
 	h.Remove(item3)

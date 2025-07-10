@@ -55,7 +55,11 @@ func (h *Heap[T]) Swap(i, j int) {
 	h.data[j].index = j
 }
 
-// Push adds x as the last element in the heap.
+// PushItem adds x as the last element in the heap.
+func (h *Heap[T]) PushItem(item *Item[T]) {
+	heap.Push(h, item)
+}
+
 func (h *Heap[T]) Push(x any) {
 	n := len(h.data)
 	item := x.(*Item[T])
@@ -63,7 +67,12 @@ func (h *Heap[T]) Push(x any) {
 	h.data = append(h.data, item)
 }
 
-// Pop removes and returns the last element of the heap.
+// PopItem removes and returns the last element of the heap.
+func (h *Heap[T]) PopItem() *Item[T] {
+	x := heap.Pop(h)
+	return x.(*Item[T])
+}
+
 func (h *Heap[T]) Pop() any {
 	old := h.data
 	n := len(old)
