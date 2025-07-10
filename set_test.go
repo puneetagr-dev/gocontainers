@@ -7,10 +7,10 @@ import (
 func TestSetEmpty(t *testing.T) {
 	set := NewSet[int]()
 	if !set.IsEmpty() {
-		t.Error("NewHeap set should be empty")
+		t.Error("New set should be empty")
 	}
 	if set.Size() != 0 {
-		t.Errorf("NewHeap set size should be 0, got %d", set.Size())
+		t.Errorf("New set size should be 0, got %d", set.Size())
 	}
 }
 
@@ -23,7 +23,6 @@ func TestSetAdd(t *testing.T) {
 	if set.Size() != 3 {
 		t.Errorf("Set size should be 3 after adding 3 elements, got %d", set.Size())
 	}
-
 	for _, v := range []int{1, 2, 3} {
 		if !set.Contains(v) {
 			t.Errorf("Set should contain %d", v)
