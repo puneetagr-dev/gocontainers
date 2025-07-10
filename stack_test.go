@@ -62,7 +62,7 @@ func TestStack_Size(t *testing.T) {
 	// Test size method
 	s := NewStack[int]()
 	if s.Size() != 0 {
-		t.Errorf("New stack should have size 0, got %d", s.Size())
+		t.Errorf("NewHeap stack should have size 0, got %d", s.Size())
 	}
 
 	s.Push(1)
@@ -85,7 +85,7 @@ func TestStack_IsEmpty(t *testing.T) {
 	// Test IsEmpty method
 	s := NewStack[int]()
 	if !s.IsEmpty() {
-		t.Error("New stack should be empty")
+		t.Error("NewHeap stack should be empty")
 	}
 
 	s.Push(1)
