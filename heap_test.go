@@ -89,7 +89,7 @@ func TestHeapRemove(t *testing.T) {
 	h.PushItem(item3)
 
 	// Remove item3 (20)
-	h.Remove(item3)
+	h.RemoveItem(item3)
 	assert.Equal(t, 2, h.Len())
 
 	val, ok := h.Peek()
@@ -97,7 +97,7 @@ func TestHeapRemove(t *testing.T) {
 	assert.Equal(t, 10, val.Get())
 
 	// Remove item1 (10)
-	h.Remove(item1)
+	h.RemoveItem(item1)
 	assert.Equal(t, 1, h.Len())
 
 	val, ok = h.Peek()
@@ -105,7 +105,7 @@ func TestHeapRemove(t *testing.T) {
 	assert.Equal(t, 5, val.Get())
 
 	// Remove item2 (5)
-	h.Remove(item2)
+	h.RemoveItem(item2)
 	assert.Equal(t, 0, h.Len())
 
 	// Peek empty

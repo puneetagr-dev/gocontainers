@@ -12,12 +12,23 @@ type Node[T comparable] struct {
 	next    *Node[T]
 }
 
+func NewNode[T comparable](element T) *Node[T] {
+	return &Node[T]{element: element}
+}
+
+func (n *Node[T]) Get() T {
+	return n.element
+}
+
+func (n *Node[T]) Update(val T) {
+	n.element = val
+}
+
 func NewDLL[T comparable]() *DLL[T] {
 	return &DLL[T]{head: nil, tail: nil, size: 0}
 }
 
-func (dll *DLL[T]) AddFront(element T) {
-	node := &Node[T]{element: element}
+func (dll *DLL[T]) AddFront(node *Node[T]) {
 	if dll.head == nil {
 		dll.head = node
 		dll.tail = node
@@ -29,8 +40,7 @@ func (dll *DLL[T]) AddFront(element T) {
 	dll.size++
 }
 
-func (dll *DLL[T]) AddBack(element T) {
-	node := &Node[T]{element: element}
+func (dll *DLL[T]) AddBack(node *Node[T]) {
 	if dll.tail == nil {
 		dll.head = node
 		dll.tail = node
@@ -80,12 +90,12 @@ func (dll *DLL[T]) IsEmpty() bool {
 	return dll.head == nil
 }
 
-func (dll *DLL[T]) GetFront() T {
-	return dll.head.element
+func (dll *DLL[T]) GetFront() *Node[T] {
+	return dll.head
 }
 
-func (dll *DLL[T]) GetBack() T {
-	return dll.tail.element
+func (dll *DLL[T]) GetBack() *Node[T] {
+	return dll.tail
 }
 
 func (dll *DLL[T]) DeleteMatch(element T) {
@@ -113,6 +123,36 @@ func (dll *DLL[T]) DeleteMatch(element T) {
 			current = current.next
 		}
 	}
+}
+
+func (dll *DLL[T]) DeleteNode(node *Node[T]) {
+	if dll.Size() == 0 {
+		return
+	}
+
+	if dll.size == 1 && dll.head == node {
+		dll.head = nil
+		dll.tail = nil
+		dll.size = 0
+		return
+	}
+
+	if dll.head == node {
+		dll.head = dll.head.next
+		dll.tail.prev = nil
+		dll.size--
+		return
+	}
+
+	if dll.tail == node {
+		dll.tail = dll.tail.prev
+		dll.head.next = nil
+		dll.size--
+		return
+	}
+
+	node.prev.next, node.next.prev = node.next, node.prev
+	dll.size--
 }
 
 // Clear removes all elements from the DLL
