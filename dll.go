@@ -24,6 +24,14 @@ func (n *Node[T]) Update(val T) {
 	n.element = val
 }
 
+func (n *Node[T]) Next() *Node[T] {
+	return n.next
+}
+
+func (n *Node[T]) Prev() *Node[T] {
+	return n.prev
+}
+
 func NewDLL[T comparable]() *DLL[T] {
 	return &DLL[T]{head: nil, tail: nil, size: 0}
 }
