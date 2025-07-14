@@ -89,9 +89,10 @@ func (h *Heap[T]) Update(item *Item[T]) {
 	heap.Fix(h, item.index)
 }
 
-// Remove removes an item from the heap.
-func (h *Heap[T]) Remove(item *Item[T]) {
+// RemoveItem removes an item from the heap.
+func (h *Heap[T]) RemoveItem(item *Item[T]) {
 	heap.Remove(h, item.index)
+	item.index = -1
 }
 
 // Init initializes the heap (useful if you have pre-populated data).
@@ -106,6 +107,10 @@ func (h *Heap[T]) Peek() (*Item[T], bool) {
 		return nil, false
 	}
 	return h.data[0], true
+}
+
+func (h *Heap[T]) ItemExists(item *Item[T]) bool {
+	return item.index > 0
 }
 
 // String returns a string representation of the heap (for debugging).
